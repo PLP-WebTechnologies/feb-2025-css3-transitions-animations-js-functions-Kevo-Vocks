@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS3 Transitions and Animations</title>
+    <style>
+        /* Box Style */
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: #3498db;
+            transition: transform 0.5s ease, background-color 0.3s ease;
+        }
+
+        /* Hover Animation */
+        .box:hover {
+            transform: scale(1.2);
+            background-color: #2ecc71;
+        }
+
+        /* Button Animation */
+        #animateButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #f39c12;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Simple Animation for Box */
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        /* Trigger the Animation */
+        .animated {
+            animation: slideIn 1s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS3 Transitions and Animations with JavaScript</h1>
+
+    <button id="animateButton">Click to Animate</button>
+
+    <div id="box" class="box"></div>
+
+    <p id="user-preference">No preferences stored yet.</p>
+
+    <script>
+        // Function to store user preference in localStorage
+        function storeUserPreference(preference) {
+            localStorage.setItem('userPreference', preference);
+        }
+
+        // Function to retrieve and display the user preference
+        function getUserPreference() {
+            const preference = localStorage.getItem('userPreference');
+            const userPreferenceElement = document.getElementById('user-preference');
+            if (preference) {
+                userPreferenceElement.textContent = `User Preference: ${preference}`;
+            } else {
+                userPreferenceElement.textContent = 'No preferences stored yet.';
+            }
+        }
+
+        // Function to animate the box
+        function animateBox() {
+            const box = document.getElementById('box');
+            box.classList.add('animated');
+
+            // Store the user preference after animation
+            storeUserPreference('Box animated!');
+        }
+
+        // Event listener for the button click to trigger animation
+        document.getElementById('animateButton').addEventListener('click', animateBox);
+
+        // Retrieve and display the user preference on page load
+        window.onload = getUserPreference;
+    </script>
+</body>
+</html>
